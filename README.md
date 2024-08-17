@@ -30,3 +30,8 @@
 - 시간에 맞춰서 자동화를 해본다. 
 - 데이터를 시각화할 수 있다.
 - 웹에 데이터를 개시할 수 있다. 
+
+
+## 참고자료
+- [PiicoDev Air Quality Sensor ENS160](https://core-electronics.com.au/guides/piicodev-air-quality-sensor-ens160-getting-started-guide/)
+- [Air Quality Iot project](https://github.com/TimHanewich/Air-Quality-IoT/tree/master)
