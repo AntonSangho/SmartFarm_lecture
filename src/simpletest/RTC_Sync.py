@@ -1,5 +1,5 @@
 import network
-from src.mywifi import networksetting
+from mywifi import networksetting
 from machine import RTC
 from machine import Pin 
 from machine import I2C
@@ -46,13 +46,13 @@ wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect(ssid, password)
     
-max_wait = 10
+max_wait = 100
 print('Waiting for connection')
 while max_wait > 10:
     if wlan.status() < 0 or wlan.status() >= 3:
         break
     max_wait -= 1    
-    sleep(1)
+    time.sleep(1)
 status = None
 if wlan.status() != 3:
     raise RuntimeError('Connections failed')
@@ -86,7 +86,7 @@ print('RTC time:   ', time.localtime())
 
 print('Setting DS3231 from RTC')
 # DS3231와 RTC 시간의 차이를 확인하고 싶으면 아래 주석을 하고 실행
-#ds3231.save_time()  # Set DS3231 from RTC
+ds3231.save_time()  # Set DS3231 from RTC
 print('DS3231 time:', ds3231.get_time())
 print('RTC time:   ', time.localtime())
 
