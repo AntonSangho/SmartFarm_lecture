@@ -29,11 +29,11 @@ def np_off():
 
 while True:
     # 네오픽셀 켜기
-    #np_on()
-    #time.sleep(1)
-    # 네오픽셀 끄기
-    np_off()
+    np_on()
     time.sleep(1)
+    # 네오픽셀 끄기
+    #np_off()
+    #time.sleep(1)
 
 
 
