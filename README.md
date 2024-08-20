@@ -1,6 +1,6 @@
 # Smart Farm 해성여고 수업 자료
 
-## 하드웨어
+## [하드웨어](/Docs/Hardware.md)
 - DataPi
     - Rasberry pi Pico WH 
     - RTC
