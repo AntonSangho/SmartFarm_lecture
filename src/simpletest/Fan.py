@@ -5,8 +5,8 @@
 import machine
 import utime
 
-# Pin 26 set to output
-fan = machine.Pin(26, machine.Pin.OUT)
+# Pin 11 set to output
+fan = machine.Pin(14, machine.Pin.OUT)
 
 # Pin 3 set to input
 button = machine.Pin(3, machine.Pin.IN, machine.Pin.PULL_UP)
