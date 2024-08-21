@@ -1,27 +1,24 @@
-# Fan control with GPIO pin26 with 2N3904 NPN transistor in Micropython
-# Control Fan with button state change.
-
-
+'''
+의사코드
+1. 팬을 제어하기 위해 machine 모듈을 임포트한다.
+2. utime 모듈을 임포트한다.
+3. 팬을 제어하기 위해 Pin 11을 출력으로 설정한다.
+4. 무한 루프를 사용하여 팬을 켜고 끈다.
+5. 팬을 켜고 1초 동안 대기한다.
+'''
 import machine
 import utime
 
 # Pin 11 set to output
 fan = machine.Pin(14, machine.Pin.OUT)
 
-# Pin 3 set to input
-button = machine.Pin(3, machine.Pin.IN, machine.Pin.PULL_UP)
-
-# fan on and off state change with button state change
-
-
-
 # fan on and off with while loop 
 
 while True:
     #fan.on()
-    #utime.sleep(5)
+    #utime.sleep(1)
     fan.off()
-    utime.sleep(0)
+    utime.sleep(1)
 
 
 
