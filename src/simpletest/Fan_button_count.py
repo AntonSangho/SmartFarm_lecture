@@ -13,7 +13,7 @@ import utime
 
 # 환풍기 핀 초기화
 led = Pin(25, Pin.OUT)
-Fan = machine.Pin(14, machine.Pin.OUT)
+Fan = machine.Pin(10, machine.Pin.OUT)
 button = Pin(20, Pin.IN, Pin.PULL_UP)
 count = 0
 
