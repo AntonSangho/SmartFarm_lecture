@@ -35,3 +35,5 @@
 ## 참고자료
 - [PiicoDev Air Quality Sensor ENS160](https://core-electronics.com.au/guides/piicodev-air-quality-sensor-ens160-getting-started-guide/)
 - [Air Quality Iot project](https://github.com/TimHanewich/Air-Quality-IoT/tree/master)
+- [CO2 Concentration Monitoring in Greenhouses](https://www.dfrobot.com/blog-13282.html)
+- [Gravity CO2 Sensor Selection Guide](https://www.dfrobot.com/blog-1487.html)
