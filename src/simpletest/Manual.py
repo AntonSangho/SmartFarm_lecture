@@ -1,123 +1,75 @@
-from machine import Pin, SoftI2C, PWM
-import utime
+"""
+네오픽셀을 켜고 끄는 의사코드.
+1. 네오픽셀 핀 설정
+2. 네오픽셀 함수 정수
+3. 무한 루프
+    4. 네오픽셀 켜기
+    5. 1초 대기
+    6. 네오픽셀 끄기
+    7. 1초 대기
+
+"""
+
+from machine import Pin
+import time
 from neopixel import NeoPixel
-import ssd1306
-from ds3231_port import DS3231
-import ahtx0
-
-
-# 네오픽셀과 환풍기 핀 초기화
-Rled = Pin(9, Pin.OUT)
-Fan = machine.Pin(26, machine.Pin.OUT)
-np0 = NeoPixel(machine.Pin(2), 30)
-np1 = NeoPixel(machine.Pin(15), 30)
-Rbutton = Pin(3, Pin.IN, Pin.PULL_UP)
-Lbutton = Pin(14, Pin.IN, Pin.PULL_UP)
-
-#OLED 초기화
-i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
-oled_width = 128
-oled_height = 64
-oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
-
-# I2C에 연결된 DS3231 초기화
-ds3231 = DS3231(i2c) 
-print('DS3231 time:', ds3231.get_time())
-
-# AHT20 초기화 
-#i2c=machine.I2C(0,sda=machine.Pin(I2C_SDA_PIN), scl=machine.Pin(I2C_SCL_PIN), freq=400000)
-#i2c=machine.I2C(i2c)
-sensor = ahtx0.AHT20(i2c)
-
-# Buzzer 초기화 
-buzzer = PWM(Pin(7))
-buzzer.freq(800)
-buzzer.duty_u16(1000)
-utime.sleep(3)
-buzzer.duty_u16(0)
+# 환풍기 핀 초기화
+led = Pin('LED', Pin.OUT)
+button = Pin(20, Pin.IN, Pin.PULL_UP)
+Fan = machine.Pin(10, machine.Pin.OUT)
 
 # 버튼 상태를 추적하는 변수 초기화
-Rbutton_state = False
-Lbutton_state = False
-
-# 네오픽셀 상태를 추적하는 변수 초기화 
-def np_on():
-    for i in range(0, np0.n):
-        np0[i] = (250,250,250)
-    for i in range(0, np1.n):
-        np1[i] = (250,250,250)
-    np0.write()
-    np1.write()
-def np_off():
-    for i in range(0, np0.n):
-        np0[i] = (0,0,0)
-    for i in range(0, np1.n):
-        np1[i] = (0,0,0)
-    np0.write()
-    np1.write()
+button_state = False
 
 # 버튼이 눌렸을 때 호출될 핸들러 함수 정의
-def Rbutton_handler(pin):
-    global Rbutton_state
+def button_handler(pin):
+    global button_state
     # 버튼 상태 전환
-    Rbutton_state = not Rbutton_state
-    if Rbutton_state == True:
-        # Buzzer indicator  
-        oled.fill(0)
-        oled.show()
-        oled.text('Fan On', 0, 10)
-        oled.show()
+    button_state = not button_state
+    if button_state == True:
+        np1_on()
+        np2_on()
     else:
-        oled.fill(0)
-        oled.show()
-        oled.text('Fan Off', 0, 10)
-        oled.show()
-        
-    print("Fan_state:", end =' ')
-    print(Rbutton_state)
-    Rled.value(Rbutton_state)
-    Fan.value(Rbutton_state)
-
-def Lbutton_handler(pin):
-    global Lbutton_state
-    # 버튼 상태 전환
-    Lbutton_state = not Lbutton_state
-    if Lbutton_state == True:
-        # Buzzer indicator
-        oled.fill(0)
-        oled.show()
-        oled.text('Neopixel On', 0, 10)
-        oled.show()
-    else:
-        oled.fill(0)
-        oled.show()
-        oled.text('Neopixel Off', 0, 10)
-        oled.show()
-    print("Neopixel_state:", end =' ' )
-    print(Lbutton_state)
-    # np_on or np off
-    if Lbutton_state == True:
-        np_on()
-    else:
-        np_off()
-
-
+        np1_off()
+        np2_off()
+    
 # 버튼에 핸들러 등록
-Rbutton.irq(trigger=Pin.IRQ_FALLING, handler=Rbutton_handler)
-Lbutton.irq(trigger=Pin.IRQ_FALLING, handler=Lbutton_handler)
+button.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
+
+# 네오픽셀 핀 초기화
+np1 = NeoPixel(machine.Pin(13), 30)
+np2 = NeoPixel(machine.Pin(14), 30)
+
+# 네오픽셀 상태를 추적하는 변수 초기화 
+def np1_on():
+    for i in range(0, np1.n):
+        np1[i] = (255,255,255)
+    np1.write()
+    Fan.value(button_state)
+def np1_off():
+    for i in range(0, np1.n):
+        np1[i] = (0,0,0)
+    np1.write()
+    Fan.value(button_state)
+def np2_on():
+    for i in range(0, np2.n):
+        np2[i] = (255,255,255)
+    np2.write()
+    Fan.value(button_state)
+def np2_off():
+    for i in range(0, np2.n):
+        np2[i] = (0,0,0)
+    np2.write()
+    Fan.value(button_state)
+
 
 while True:
-    #oled.fill(0)
-    #current_time = ds3231.get_time()
-    #formatted_time = "{:02}:{:02}".format(current_time[3], current_time[4])
-    #oled.text(formatted_time, 0, 0)
-    #oled.show()
-    #utime.sleep(10)
-    print(sensor.relative_humidity)
-    utime.sleep(1)
-#while True:
-    #oled.fill(0)
-    #oled.show()
-    #oled.text(ds3231.get_time(), 0, 0)
-    ##utime.sleep(0.1)
-    #utime.sleep(1)
+    # 네오픽셀 켜기
+    #np1_on()
+    #np2_on()
+    time.sleep(1)
+    # 네오픽셀 끄기
+    #np1_off()
+    #np2_off()
+    #time.sleep(1)
+
