@@ -9,7 +9,7 @@ import uos
 # 글로벌 변수
 sensing_active = False
 recording_active = False
-recording_interval = 1800  # 데이터 기록 간격을 초 단위로 설정 (예: 30분마다 데이터 기록)
+recording_interval = 1  # 데이터 기록 간격을 초 단위로 설정 (예: 30분마다 데이터 기록)
 file = None # 파일 객체 초기화
 
 # LED, 버튼, 부저 설정
@@ -23,7 +23,7 @@ sclPIN = Pin(5)
 i2c = I2C(0, sda=sdaPIN, scl=sclPIN)
 
 # DS3231 RTC 및 DS18x20 온도 센서 설정
-#ds3231 = DS3231(i2c)
+ds3231 = DS3231(i2c)
 #data = Pin(26)
 #temp_wire = onewire.OneWire(data)
 #temp_sensor = ds18x20.DS18X20(temp_wire)
