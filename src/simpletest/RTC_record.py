@@ -29,7 +29,7 @@ def record_data():
         rht = aht.read()
         humidity = rht[0]
         temperature = rht[1]
-        # format: 년도, 월, 일, 요일, 시간, 분, 초 
+        # format: 년도, 월, 일, 시간, 분, 초 
         print("Time: {}/{}/{} {}:{}:{}".format(now[0], now[1], now[2], now[3], now[4], now[5]))
         print("Humidity: {:.2f}%".format(humidity))
         print("Temperature: {:.2f}C".format(temperature))
