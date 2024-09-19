@@ -89,7 +89,7 @@ print('RTC time:   ', time.localtime())
 
 print('Setting DS3231 from RTC')
 # DS3231와 RTC 시간의 차이를 확인하고 싶으면 아래 주석을 하고 실행
-ds3231.save_time()  # Set DS3231 from RTC
+#ds3231.save_time()  # Set DS3231 from RTC
 print('DS3231 time:', ds3231.get_time())
 print('RTC time:   ', time.localtime())
 
