@@ -6,18 +6,23 @@ import utime
 from neopixel import NeoPixel
 import ssd1306
 from machine import RTC
+from ds3231_port import DS3231
 
 # 환풍기 핀 초기화
 led = Pin('LED', Pin.OUT)
 button = Pin(20, Pin.IN, Pin.PULL_UP)
 
 # OLED i2c 통신 설정
-i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
+#i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
+
+# RTC I2C 포트를 설정합니다.
+i2c0 = machine.I2C(0, scl=machine.Pin(5), sda=machine.Pin(4), freq=400000)
+rtc = DS3231(i2c0)
 
 # OLED 픽셀 크기 설정
 oled_width = 128
 oled_height = 64
-oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
+oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c0)
 
 # 버튼의 상태를 추적하는 변수 초기화    
 button_state = False
@@ -62,9 +67,9 @@ while True:
     oled.fill(0)
     
     # OLED 화면에 rtc 시간 출력 
-    current_time = get_time()
+    current_time = rtc.get_time()
     oled.text("Time: ", 0, 0)
-    oled.text("{:02d}:{:02d}:{:02d}".format(current_time[4], current_time[5], current_time[6]), 0, 10)
+    oled.text("{:02d}:{:02d}:{:02d}".format(current_time[3], current_time[4], current_time[5]), 0, 10)
 
     if button_state and countdown_start_time is not None:
         # 경과 시간 계산 
