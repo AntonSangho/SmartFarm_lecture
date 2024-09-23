@@ -1,5 +1,10 @@
 """
-DataPi_v1.py
+DataPi_v1.py 기능
+- 버튼을 누르면 온습도, 가스 센서 데이터를 OLED에 표시하고, 파일에 기록합니다.
+- 기록 중일 때는 네오픽셀이 켜지고, 기록 중지 상태에서는 네오픽셀이 꺼집니다.
+- 기록 중일 때는 OLED에 "Recording"이라고 표시하고, 기록 중지 상태에서는 "Stop"이라고 표시합니다.
+- 기록 중일 때는 온습도, 가스 센서 데이터를 OLED에 표시하고, 파일에 기록합니다.
+- 파일에는 "날짜, 시간, 온도, 습도, AQI, ECO2, TVOC" 데이터를 기록합니다.
 """
 import random
 from machine import Pin, SoftI2C, PWM 
