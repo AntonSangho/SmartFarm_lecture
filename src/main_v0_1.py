@@ -19,7 +19,11 @@ import ENS160
 # 상태변수 
 sensging_active = False
 recording_active = False
-recording_interval = 1   
+# 기록 간격 설정
+# 3600 = 1시간
+# 1800 = 30분
+# 60 = 1분
+recording_interval = 1800   
 file = None
 
 # LED, 버튼, 부저 설정
@@ -174,6 +178,7 @@ while True:
     if recording_active:
         record_data()
         utime.sleep(recording_interval)
+        # 파일을 닫아서 데이터가 유실되지 않도록 합니다.
         file.close()
     else:
         Led.value(0)
