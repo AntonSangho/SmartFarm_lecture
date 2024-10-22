@@ -59,8 +59,8 @@ button.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
 
 # 네오픽셀 핀 초기화
 np0 = NeoPixel(machine.Pin(21), 1)
-np1 = NeoPixel(machine.Pin(13), 30)
-np2 = NeoPixel(machine.Pin(14), 30)
+np1 = NeoPixel(machine.Pin(6), 30)
+np2 = NeoPixel(machine.Pin(7), 30)
 
 # 네오픽셀 상태를 추적하는 변수 초기화 
 def np0_on():
