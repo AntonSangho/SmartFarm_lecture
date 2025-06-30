@@ -1,5 +1,8 @@
 # Smart Farm 해성여고 수업 자료
 
+## 코드변경사항
+- main v0.2 : RTC로 켜진느 시간 확인, OLED 액정에 환경데이터 보여지기
+
 ## [하드웨어](/Docs/Hardware.md)
 - DataPi
     - Rasberry pi Pico WH 
